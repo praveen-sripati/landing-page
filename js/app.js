@@ -93,6 +93,7 @@ function navBuild() {
     text-decoration:none;
     color:white;
     `;
+    anchorElementsAll[i].setAttribute("href", "#section" + (i+1));
     anchorElementsAll[i].setAttribute("onmouseover","hover(this)");
     anchorElementsAll[i].setAttribute("onmouseout","normal(this)");
   }
@@ -107,11 +108,11 @@ function navBuild() {
     const handler = () => {
       for (let i=0; i < sections.length; i++) {
         if(isElementInViewport(sections[i])) {
-          sections[i].classList.add('active');
+          sections[i].classList.add('your-active-class');
           hover(anchors[i]);
           anchors[i].removeAttribute('onmouseout');
         } else {
-          sections[i].classList.remove('active');
+          sections[i].classList.remove('your-active-class');
           normal(anchors[i]);
           anchors[i].setAttribute("onmouseout","normal(this)");
         }
@@ -125,13 +126,14 @@ function navBuild() {
 }
 
 // Scroll to anchor ID using scrollTO event
-function scrollOnClick(el) {
-    el.scrollIntoView({
-    behavior: 'smooth'
+function scrollOnClick(e) {
+  e.preventDefault();
+
+  document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
   });
 }
-
-
 /**
  * End Main Functions
  * Begin Events
@@ -142,6 +144,11 @@ function scrollOnClick(el) {
 document.addEventListener('DOMContentLoaded', navBuild);
 
 // Scroll to section on link click
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', scrollOnClick);
+  });
+})
 
 // Set sections as active
 
