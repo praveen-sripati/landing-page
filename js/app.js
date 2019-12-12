@@ -46,7 +46,24 @@ function isElementInViewport(el) {
 
 
 // build the nav
+function hover(el) {
+  el.style.cssText =
+  `padding:1rem;
+  text-decoration:none;
+  color:black;
+  background-color: #fff`;
+}
+
+function normal(el) {
+  el.style.cssText =
+  `padding:1rem;
+  text-decoration:none;
+  color: white;
+  `;
+}
+
 function navBuild() {
+
   const ulElement = document.getElementById('navbar__list');
 
   const navLinkNames = ["Section 1", "Section 2", "Section 3", "Section 4"];
@@ -80,22 +97,6 @@ function navBuild() {
     anchorElementsAll[i].setAttribute("onmouseout","normal(this)");
   }
 
-  function hover(el) {
-    el.style.cssText =
-    `padding:1rem;
-    text-decoration:none;
-    color:black;
-    background-color: #fff`;
-  }
-
-  function normal(el) {
-    el.style.cssText =
-    `padding:1rem;
-    text-decoration:none;
-    color: white;
-    `;
-  }
-
   // Add class 'active' to section when near top of viewport
 
   function activeSection() {
@@ -108,9 +109,11 @@ function navBuild() {
         if(isElementInViewport(sections[i])) {
           sections[i].classList.add('active');
           hover(anchors[i]);
+          anchors[i].removeAttribute('onmouseout');
         } else {
           sections[i].classList.remove('active');
           normal(anchors[i]);
+          anchors[i].setAttribute("onmouseout","normal(this)");
         }
       }
     };
@@ -122,6 +125,12 @@ function navBuild() {
 }
 
 // Scroll to anchor ID using scrollTO event
+function scrollOnClick(el) {
+    el.scrollIntoView({
+    behavior: 'smooth'
+  });
+}
+
 
 /**
  * End Main Functions
@@ -133,7 +142,6 @@ function navBuild() {
 document.addEventListener('DOMContentLoaded', navBuild);
 
 // Scroll to section on link click
-
 
 // Set sections as active
 
