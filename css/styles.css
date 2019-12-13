@@ -249,7 +249,6 @@ section.your-active-class .landing__container::after {
 #top-btn {
     width: 60px;
     height: 60px;
-    display: none;
     position: fixed;
     bottom: 40px;
     right: 40px;

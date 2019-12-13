@@ -118,18 +118,6 @@ function navBuild() {
     window.addEventListener('scroll', handler);
   }
   activeSection();
-}
-
-// Scroll to anchor ID using scrollTO event
-
-  function scrollOnClick(e) {  //event delegation
-    e.preventDefault();
-    const hrefValue = e.target.getAttribute("href");
-    document.querySelector(hrefValue).scrollIntoView ({
-      behavior: 'smooth',
-      block: 'center'
-    })
-  }
 
 // Scroll to top button
   window.onscroll = () => {
@@ -140,8 +128,18 @@ function navBuild() {
     }
     document.querySelector('header').style.display = "block";
   }
+}
 
 
+// Scroll to anchor ID using scrollTO event
+function scrollOnClick(e) {  //event delegation
+  e.preventDefault();
+  const hrefValue = e.target.getAttribute("href");
+  document.querySelector(hrefValue).scrollIntoView ({
+    behavior: 'smooth',
+    block: 'center'
+  })
+}
 
 /**
  * End Main Functions
@@ -164,11 +162,27 @@ document.getElementById('top-btn').addEventListener('click', () => {
 });
 
 
-// experiment
-setInterval( () =>{
-  if (!(document.documentElement.scrollTop === 0)) {
-  document.querySelector('header').style.display = "none";
+
+// Hide fixed navigation bar while not scrolling
+let flag = false;
+
+setInterval( () => {
+  document.querySelector('header').addEventListener('mouseover', () => {
+    flag = true;
+  });
+  document.querySelector('header').addEventListener('mouseout', () => {
+    flag = false;
+  });
+  if((document.documentElement.scrollTop === 0)) {
+    document.querySelector('header').style.display = "block";
+  } else if(flag) {
+    document.querySelector('header').style.display = "block";
+  } else {
+    document.querySelector('header').style.display = "none";
   }
-},8000)
+},6000);
+
+
+
 
 
