@@ -79,8 +79,7 @@ function navBuild() {
     display:flex;
     flex=flow: row wrap;
     align-items: center;
-    justify-content: center;
-    padding: 1rem 0`;
+    justify-content: center;`;
 
   const navElement = document.querySelectorAll('.navbar__menu');
 
