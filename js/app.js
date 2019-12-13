@@ -46,20 +46,20 @@ function isElementInViewport(el) {
 
 
 // build the nav
-function hover(el) {
+function active(el) {
   el.style.cssText =
-  `padding:1rem;
-  text-decoration:none;
-  color:black;
-  background-color: #fff`;
+  `background: #333;
+  color: #fff;
+  transition: ease 0.3s all;`;
 }
 
 function normal(el) {
   el.style.cssText =
-  `padding:1rem;
-  text-decoration:none;
-  color: white;
-  `;
+  `display: block;
+  padding: 1em;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000`;
 }
 
 function navBuild() {
@@ -71,7 +71,7 @@ function navBuild() {
   for (let i = 0; i <=3; i++) {
     const liElement = document.createElement('li');
     liElement.innerHTML = `<a href='#'>${navLinkNames[i]}</a>`;
-    liElement.classList.add('nav-link');
+    liElement.classList.add('menu__link');
     ulElement.appendChild(liElement);
   }
 
@@ -94,8 +94,6 @@ function navBuild() {
     color:white;
     `;
     anchorElementsAll[i].setAttribute("href", "#section" + (i+1));
-    anchorElementsAll[i].setAttribute("onmouseover","hover(this)");
-    anchorElementsAll[i].setAttribute("onmouseout","normal(this)");
   }
 
   // Add class 'active' to section when near top of viewport
@@ -109,12 +107,10 @@ function navBuild() {
       for (let i=0; i < sections.length; i++) {
         if(isElementInViewport(sections[i])) {
           sections[i].classList.add('your-active-class');
-          hover(anchors[i]);
-          anchors[i].removeAttribute('onmouseout');
+          active(document.querySelectorAll('li')[i]);
         } else {
           sections[i].classList.remove('your-active-class');
-          normal(anchors[i]);
-          anchors[i].setAttribute("onmouseout","normal(this)");
+          normal(document.querySelectorAll('li')[i]);
         }
       }
     };
@@ -145,11 +141,16 @@ document.addEventListener('DOMContentLoaded', navBuild);
 
 // Scroll to section on link click
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  document.querySelectorAll('a').forEach(anchor => {
     anchor.addEventListener('click', scrollOnClick);
   });
 })
 
 // Set sections as active
+
+
+
+
+// Hide navigation
 
 
