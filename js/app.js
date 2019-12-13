@@ -121,23 +121,27 @@ function navBuild() {
 }
 
 // Scroll to anchor ID using scrollTO event
-function scrollOnClick(e) {
-  e.preventDefault();
 
-  document.querySelector(this.getAttribute('href')).scrollIntoView({
+  function scrollOnClick(e) {  //event delegation
+    e.preventDefault();
+    const hrefValue = e.target.getAttribute("href");
+    document.querySelector(hrefValue).scrollIntoView ({
       behavior: 'smooth',
       block: 'center'
-  });
-}
+    })
+  }
 
 // Scroll to top button
-window.onscroll = () => {
-  if (document.documentElement.scrollTop > 350) {
-    document.getElementById('top-btn').style.display = "block";
-  } else {
-    document.getElementById('top-btn').style.display = "none";
+  window.onscroll = () => {
+    if (document.documentElement.scrollTop > 350) {
+      document.getElementById('top-btn').style.display = "block";
+    } else {
+      document.getElementById('top-btn').style.display = "none";
+    }
+    document.querySelector('header').style.display = "block";
   }
-}
+
+
 
 /**
  * End Main Functions
@@ -149,11 +153,8 @@ window.onscroll = () => {
 document.addEventListener('DOMContentLoaded', navBuild);
 
 // Scroll to section on link click
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('a').forEach(anchor => {
-    anchor.addEventListener('click', scrollOnClick);
-  });
-});
+document.querySelector('ul').addEventListener("click", scrollOnClick);
+
 
 // Set sections as active
 
@@ -163,8 +164,11 @@ document.getElementById('top-btn').addEventListener('click', () => {
 });
 
 
-
-
-
+// experiment
+setInterval( () =>{
+  if (!(document.documentElement.scrollTop === 0)) {
+  document.querySelector('header').style.display = "none";
+  }
+},8000)
 
 

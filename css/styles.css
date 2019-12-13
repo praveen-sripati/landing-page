@@ -266,8 +266,9 @@ section.your-active-class .landing__container::after {
 }
 
 #top-btn:hover {
-    background-color: #555;
+    background-color: darkorange;
     box-shadow: 6px 6px 10px rgba(0,0,0,0.5);
 }
+
 
 
