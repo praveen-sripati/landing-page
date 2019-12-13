@@ -130,6 +130,16 @@ function scrollOnClick(e) {
       block: 'center'
   });
 }
+
+// Scroll to top button
+window.onscroll = () => {
+  if (document.documentElement.scrollTop > 350) {
+    document.getElementById('top-btn').style.display = "block";
+  } else {
+    document.getElementById('top-btn').style.display = "none";
+  }
+}
+
 /**
  * End Main Functions
  * Begin Events
@@ -144,13 +154,18 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('a').forEach(anchor => {
     anchor.addEventListener('click', scrollOnClick);
   });
-})
+});
 
 // Set sections as active
 
+// Scroll to top on button click
+document.getElementById('top-btn').addEventListener('click', () => {
+  document.querySelector('html').scrollIntoView({behavior:"smooth"});
+});
 
 
 
-// Hide navigation
+
+
 
 
