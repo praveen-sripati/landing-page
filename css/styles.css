@@ -223,8 +223,29 @@ section.your-active-class .landing__container::after {
 }
 
 
+/* media queries for smaller and medium devvices */
+@media only screen and (max-width: 35em) {
+    ul {
+        display: flex;
+        flex-flow: column nowrap;
+    }
 
-/* experiment */
+    .page__header {
+        position: relative;
+    }
+
+    li {
+        width: 100%;
+        text-align: center;
+    }
+
+    a {
+        width: 100%;
+    }
+}
+
+
+/* Scroll-To-Top button rules*/
 #top-btn {
     width: 60px;
     height: 60px;
