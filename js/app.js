@@ -18,6 +18,7 @@
  *
 */
 
+const sections = document.querySelectorAll('section');
 
 /**
  * End Global Variables
@@ -32,7 +33,7 @@
  */
 function isElementInViewport(el) {
 
-  var rect = el.getBoundingClientRect();
+  let rect = el.getBoundingClientRect();
 
   return (
       rect.top >= 0 &&
@@ -84,27 +85,27 @@ function navBuild() {
 
   const ulElement = document.getElementById('navbar__list');
 
-  const navLinkNames = document.querySelectorAll('section');
-
-  for (let i = 0; i < navLinkNames.length; i++) {
+  // Creates 'li' elements and appends it to the parent 'ul' element
+  for (let i = 0; i < sections.length; i++) {
     const liElement = document.createElement('li');
-    liElement.innerHTML = `<a href='#'>${navLinkNames[i].dataset.nav}</a>`;
+    liElement.innerHTML = `<a href='#'>${sections[i].dataset.nav}</a>`;
     liElement.classList.add('menu__link');
     ulElement.appendChild(liElement);
   }
 
+  // css rules for 'ul' element
   ulElement.style.cssText = `
     display:flex;
     flex=flow: row wrap;
     align-items: center;
     justify-content: center;`;
 
+  // Setting background-color to nav element
   const navElement = document.querySelectorAll('.navbar__menu');
-
   navElement[0].setAttribute("style","background-color:rgba(0,13,60,1);");
 
+  // Setting css rules and 'href' attribute for 'anchor' elements
   const anchorElementsAll = ulElement.querySelectorAll('a');
-
   for (let i = 0; i < anchorElementsAll.length; i++) {
     anchorElementsAll[i].style.cssText = `padding:1rem;
     text-decoration:none;
@@ -113,13 +114,16 @@ function navBuild() {
     anchorElementsAll[i].setAttribute("href", "#section" + (i+1));
   }
 
+
   // Add class 'active' to section when near top of viewport
 
+  /**
+   * @description make the section active when it is active in the viewport/closest to the top which makes distinguished from the other sections.
+   */
   function activeSection() {
-    const sections = document.querySelectorAll('section');
 
-    const anchors = document.querySelectorAll('a');
-
+    // Adds the class 'your-class-active' when the class is active
+    // and makes the link active
     const handler = () => {
       for (let i=0; i < sections.length; i++) {
         if(isElementInViewport(sections[i])) {
@@ -132,24 +136,33 @@ function navBuild() {
       }
     };
 
-    handler();
+    handler();  // function call
     window.addEventListener('scroll', handler);
   }
-  activeSection();
+  activeSection(); // function call
 
-// Scroll to top button
+  // Scroll to top button
   window.onscroll = () => {
+
+    // when scrolling if the root element's distance from
+    // top is greater than 350 pixels than top button will appear
     if (document.documentElement.scrollTop > 350) {
       document.getElementById('top-btn').style.display = "block";
     } else {
       document.getElementById('top-btn').style.display = "none";
     }
+    // when scrolling the navbar will be visible
     document.querySelector('header').style.display = "block";
   }
-}
+} // end of the navBuild()
 
 
 // Scroll to anchor ID using scrollTO event
+/**
+ * @description Clicking on a navigation item will scroll to the appropriate section of the page smoothly.
+ * @param {Event} e
+ *
+ */
 function scrollOnClick(e) {  //event delegation
   e.preventDefault();
   if (e.target.nodeName === "A") {
@@ -171,10 +184,7 @@ function scrollOnClick(e) {  //event delegation
 document.addEventListener('DOMContentLoaded', navBuild);
 
 // Scroll to section on link click
-document.querySelector('ul').addEventListener("click", scrollOnClick);
-
-
-// Set sections as active
+document.querySelector('ul').addEventListener("click", scrollOnClick); //event delegation
 
 // Scroll to top on button click
 document.getElementById('top-btn').addEventListener('click', () => {
@@ -184,6 +194,7 @@ document.getElementById('top-btn').addEventListener('click', () => {
 
 
 // Hide fixed navigation bar while not scrolling
+
 let flag = false;
 
 setInterval( () => {
@@ -193,9 +204,10 @@ setInterval( () => {
   document.querySelector('header').addEventListener('mouseout', () => {
     flag = false;
   });
+  // when root element is at the top than navbar will be visible forever
   if((document.documentElement.scrollTop === 0)) {
     document.querySelector('header').style.display = "block";
-  } else if(flag) {
+  } else if(flag) { //if mouse is over the navbar then it is visible forever
     document.querySelector('header').style.display = "block";
   } else {
     document.querySelector('header').style.display = "none";
