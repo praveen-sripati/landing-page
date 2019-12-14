@@ -44,7 +44,7 @@ function isElementInViewport(el) {
 
 
 /**
- *
+ * @description Makes the link active
  * @param {Element} el
  */
 function active(el) {
@@ -54,6 +54,10 @@ function active(el) {
   transition: ease 0.3s all;`;
 }
 
+/**
+ * @description Makes the link normal
+ * @param {Element} el
+ */
 function normal(el) {
   el.style.cssText =
   `display: block;
@@ -73,15 +77,18 @@ function normal(el) {
 
 // build the nav
 
+/**
+ * @description This will dynamically create a navigation menu based on the sections of the page.
+ */
 function navBuild() {
 
   const ulElement = document.getElementById('navbar__list');
 
-  const navLinkNames = ["Section 1", "Section 2", "Section 3", "Section 4"];
+  const navLinkNames = document.querySelectorAll('section');
 
-  for (let i = 0; i <=3; i++) {
+  for (let i = 0; i < navLinkNames.length; i++) {
     const liElement = document.createElement('li');
-    liElement.innerHTML = `<a href='#'>${navLinkNames[i]}</a>`;
+    liElement.innerHTML = `<a href='#'>${navLinkNames[i].dataset.nav}</a>`;
     liElement.classList.add('menu__link');
     ulElement.appendChild(liElement);
   }
