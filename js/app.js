@@ -25,6 +25,11 @@
  *
 */
 
+/**
+ * @description Checks whether the element is in the viewport or not
+ * @param {Element} el
+ * @returns {boolean} Elements visibility status in the viewport
+ */
 function isElementInViewport(el) {
 
   var rect = el.getBoundingClientRect();
@@ -37,15 +42,11 @@ function isElementInViewport(el) {
   );
 }
 
+
 /**
- * End Helper Functions
- * Begin Main Functions
  *
-*/
-
-
-
-// build the nav
+ * @param {Element} el
+ */
 function active(el) {
   el.style.cssText =
   `background: #333;
@@ -61,6 +62,16 @@ function normal(el) {
   text-decoration: none;
   color: #000`;
 }
+
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ *
+*/
+
+
+
+// build the nav
 
 function navBuild() {
 
@@ -134,11 +145,13 @@ function navBuild() {
 // Scroll to anchor ID using scrollTO event
 function scrollOnClick(e) {  //event delegation
   e.preventDefault();
-  const hrefValue = e.target.getAttribute("href");
-  document.querySelector(hrefValue).scrollIntoView ({
-    behavior: 'smooth',
-    block: 'center'
-  })
+  if (e.target.nodeName === "A") {
+    const hrefValue = e.target.getAttribute("href");
+    document.querySelector(hrefValue).scrollIntoView ({
+      behavior: 'smooth',
+      block: 'center'
+    })
+  }
 }
 
 /**
